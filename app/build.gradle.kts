@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -31,6 +33,9 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+
+        // Flag to enable support for the new language APIs
+        isCoreLibraryDesugaringEnabled = true
     }
     buildFeatures {
         compose = true
@@ -38,6 +43,10 @@ android {
 }
 
 dependencies {
+    coreLibraryDesugaring(libs.android.desugar)
+
+    ksp(libs.dagger.compiler)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -46,6 +55,20 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    
+    // Coroutines
+    implementation(libs.kotlinx.coroutines)
+    implementation(libs.kotlinx.coroutines.android)
+    
+    // Ktor for networking
+    implementation(libs.ktor.network)
+    
+    // Dagger for dependency injection
+    implementation(libs.dagger)
+    
+    // Timber for logging
+    implementation(libs.timber)
+    
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
