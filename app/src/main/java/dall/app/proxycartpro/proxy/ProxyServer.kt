@@ -7,7 +7,6 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import timber.log.Timber
-import java.net.InetSocketAddress
 
 /**
  * Simple TCP proxy server for handling HTTP/HTTPS proxy requests
@@ -35,7 +34,7 @@ class ProxyServer(
             _status.value = ProxyStatus.Starting
 
             val selector = SelectorManager(Dispatchers.IO)
-            serverSocket = aSocket(selector).tcp().bind(InetSocketAddress("0.0.0.0", port))
+            serverSocket = aSocket(selector).tcp().bind(hostname = "0.0.0.0", port = port)
 
             _status.value = ProxyStatus.Running(port)
             Timber.d("Proxy server started on port $port")
@@ -152,7 +151,7 @@ class ProxyServer(
 
             // Connect to remote server
             val selector = SelectorManager(Dispatchers.IO)
-            val remoteSocket = aSocket(selector).tcp().connect(InetSocketAddress(host, port))
+            val remoteSocket = aSocket(selector).tcp().connect(hostname = host, port = port)
 
             // Send success response
             sendChannel.writeStringUtf8("HTTP/1.1 200 Connection Established\r\n\r\n")

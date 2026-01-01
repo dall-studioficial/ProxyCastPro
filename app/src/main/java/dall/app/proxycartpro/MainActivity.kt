@@ -85,6 +85,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TetheringScreen(tetheringManager: TetheringManager) {
     val tetheringState by tetheringManager.tetheringState.collectAsState()
