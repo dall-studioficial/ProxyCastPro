@@ -1,15 +1,13 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.compose)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.plugin.compose")
     id("org.jetbrains.kotlin.android")
-    alias(libs.plugins.ksp)
+    id("com.google.devtools.ksp")
 }
 
 android {
     namespace = "dall.app.proxycartpro"
-    compileSdk {
-        version = release(36)
-    }
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "dall.app.proxycartpro"
