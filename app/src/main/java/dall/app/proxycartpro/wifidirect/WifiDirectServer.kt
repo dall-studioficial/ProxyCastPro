@@ -104,7 +104,7 @@ class WifiDirectServer(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 createGroupQ(channel, config, listener)
             } else {
-                wifiP2pManager.createGroup(channel, listener)
+                wifiP2PManager.createGroup(channel, listener)
             }
         }
     }
